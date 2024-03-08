@@ -71,27 +71,7 @@ public:
     int height;
 	
 	brushcolor FirstColor();
-	
-	/*bool IsDead();*/
-	
-	/*int GetHp();*/
-	
-	/*virtual void TestSurvive(int DeltaHp);
-	
-	virtual void Attack(GridActor* Targetanimal);
-	
-	virtual void OnAttacked(GridActor* Attacker);*/
-	
-	
-	
-	
-	
 
-	/*GridActor(int inHp, int inPower) :GridActor()
-	{
-		this->Hp = inHp;
-		this->Power = inPower;
-	}*/
 	void DrawActor();
 	
 	void ClearDrawActor();
@@ -99,23 +79,9 @@ public:
 	GridActor(int inwidth, int inheight, std::string inActorName);
 	
 	
-	GridActor(class Board* inOriginBoard, int inwidth, int inheight, struct point inZeroPoint, std::string inActorName);
+	GridActor(class Board* inOriginBoard, int inwidth, int inheight, struct point inZeroPoint, std::string inActorName,brushcolor inColor);
 	virtual ~GridActor();
-	/*{
-
-
-
-		if (inOriginBoard != nullptr)
-		{
-			this->OriginBoard = inOriginBoard;
-			this->ZeroPoint = inZeroPoint;
-		}
-		else
-		{
-			abort();
-		}
-
-	};*/
+	
 
 	Message SaveMessage;
 	
@@ -123,11 +89,11 @@ public:
 
 	void GridActorSendMessage(const Message& inSaveMessage);
 
-	brushcolor OriginColor();
+	
 	
     
 
 };
-//int GridActor::Live = 0;
+
 
 

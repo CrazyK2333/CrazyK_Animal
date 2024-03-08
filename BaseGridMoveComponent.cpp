@@ -1,6 +1,8 @@
 #pragma once
 #include"BaseGridMoveComponent.h"
 #include"Board.h"
+#include"SingleBlock.h"
+
 
 
 bool BaseGridMoveComponent::MoveDelta(int inXDistance,int inYDistance)
@@ -56,7 +58,57 @@ bool BaseGridMoveComponent::MoveDelta(int inXDistance,int inYDistance)
 		return false;
 
 	}
-	if(ParentActor->OriginBoard->SearchBlockAtIndexXY(LeftTop.x,LeftTop.y)->blockcolor!=brushcolor::Black&& 
+	if(ParentActor->OriginBoard->SearchBlockAtIndexXY(LeftTop.x, LeftTop.y)->blockcolor != brushcolor::Black &&
+		ParentActor->OriginBoard->SearchBlockAtIndexXY(LeftTop.x, LeftTop.y)->GridActorPointer
+		!=ParentActor->OriginBoard->SearchBlockAtIndexXY(LeftTop.x, LeftTop.y)->FirstGridActorPointer())
+	{
+	    ReportCollision(LeftTop.x, LeftTop.y);
+		return false;
+	
+	}
+	if (ParentActor->OriginBoard->SearchBlockAtIndexXY(LeftBottom.x, LeftBottom.y)->blockcolor != brushcolor::Black &&
+		ParentActor->OriginBoard->SearchBlockAtIndexXY(LeftBottom.x, LeftBottom.y)->GridActorPointer
+		!= ParentActor->OriginBoard->SearchBlockAtIndexXY(LeftTop.x, LeftTop.y)->FirstGridActorPointer())
+	{
+		ReportCollision(LeftBottom.x, LeftBottom.y);
+		return false;
+
+	}
+	if (ParentActor->OriginBoard->SearchBlockAtIndexXY(RightTop.x, RightTop.y)->blockcolor != brushcolor::Black &&
+		ParentActor->OriginBoard->SearchBlockAtIndexXY(RightTop.x, RightTop.y)->GridActorPointer
+		!= ParentActor->OriginBoard->SearchBlockAtIndexXY(LeftTop.x, LeftTop.y)->FirstGridActorPointer())
+	{
+		ReportCollision(RightTop.x, RightTop.y);
+		return false;
+
+	}
+	if (ParentActor->OriginBoard->SearchBlockAtIndexXY(RightBottom.x, RightBottom.y)->blockcolor != brushcolor::Black &&
+		ParentActor->OriginBoard->SearchBlockAtIndexXY(RightBottom.x, RightBottom.y)->GridActorPointer
+		!= ParentActor->OriginBoard->SearchBlockAtIndexXY(LeftTop.x, LeftTop.y)->FirstGridActorPointer())
+	{
+		ReportCollision(RightBottom.x, RightBottom.y);
+		return false;
+
+	}
+	for (int x = LeftTop.x; x <= RightTop.x; x++)
+	{
+
+
+		for (int y = LeftTop.y; y <= RightBottom.y; y++)
+		{
+
+			if (ParentActor->OriginBoard->SearchBlockAtIndexXY(x, y)->blockcolor != brushcolor::Black &&
+				ParentActor->OriginBoard->SearchBlockAtIndexXY(x, y)->GridActorPointer!= ParentActor->OriginBoard->SearchBlockAtIndexXY(LeftTop.x,LeftTop.y)->GridActorPointer)
+			{
+				ReportCollision(x, y);
+				return false;
+			}
+
+
+		}
+
+	}
+	/*if(ParentActor->OriginBoard->SearchBlockAtIndexXY(LeftTop.x,LeftTop.y)->blockcolor!=brushcolor::Black&& 
 		ParentActor->OriginBoard->SearchBlockAtIndexXY(LeftTop.x, LeftTop.y)->blockcolor != ParentActor->FirstColor())
 	{ 
 		ReportCollision(LeftTop.x, LeftTop.y);
@@ -83,8 +135,8 @@ bool BaseGridMoveComponent::MoveDelta(int inXDistance,int inYDistance)
 		ReportCollision(RightBottom.x, RightBottom.y);
 		return false;
 
-	}
-	for (int x = LeftTop.x; x <= RightTop.x; x++)
+	}*/
+	/*for (int x = LeftTop.x; x <= RightTop.x; x++)
 	{
 		
 		
@@ -101,7 +153,7 @@ bool BaseGridMoveComponent::MoveDelta(int inXDistance,int inYDistance)
 
 		}
 
-	}
+	}*/
 	ParentActor->ClearDrawActor();
 	ParentActor->ZeroPoint += Delta;
 	
@@ -154,6 +206,7 @@ void BaseGridMoveComponent::ReportCollision(int attackedX, int attackedY)
 void BaseGridMoveComponent::UpDateComponent(float IntervalTime)
 {
 	Component::UpDateComponent(IntervalTime);
+
 }
 
 bool BaseGridMoveComponent::Move()
@@ -178,6 +231,7 @@ void BaseGridMoveComponent::GetWithoutMessageM()
 	GetMessageM = TransferMessage.GetValue_0<point>();
 
 }
+
 
 
 

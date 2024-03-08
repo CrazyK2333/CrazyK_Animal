@@ -10,6 +10,7 @@ private:
 	float Power;
 	std::string ActorName;
 	std::string OnAttackActor;
+	float mActorOnattackedAction{ 0.f };
 	
 	
 
@@ -22,6 +23,8 @@ public:
 	{
 
 	}
+
+	/*void UpDateComponent(float IntervalTime,Message inMessage);*/
 
 	BaseGridAttackComponent& SetHp(int inHp);
 

@@ -14,7 +14,15 @@ struct SingleBoardBlocksinfo
     void InitSingle(brushcolor blockcolor, int x, int y);
    
     void DrawMySelfAsRectangle(HDC memDc);
+
+    void* GridActorPointer=nullptr;
+
+    void* FirstGridActorPointer();
+
+    void* ChangePointer(void* inID);
+
     
+
 
 };
 

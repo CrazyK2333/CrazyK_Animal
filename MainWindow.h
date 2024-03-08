@@ -194,9 +194,9 @@ void InitialGame()
 {
     
     //GridActor*ActorWareHouse[3]{ new Cat{ &BoardGrids,3,3,point{1,1} }, new Human{ &BoardGrids,5, 5,point{6,6} }, new Pig{ &BoardGrids,8,8,point{15,15} } };
-    GridActor::GetGlobalWareActorHouse().push_back(new Cat{&Board::GetGlobalBoard(),3,3,point{10,1},"Cat"/*,brushcolor::White*/});
-    GridActor::GetGlobalWareActorHouse().push_back(new Human{ &Board::GetGlobalBoard(),5, 5,point{6,6},"Human"/*,brushcolor::Blue*/});
-    GridActor::GetGlobalWareActorHouse().push_back(new Pig{ &Board::GetGlobalBoard(),8,8,point{20,2},"Pig"/*,brushcolor::Pink*/});
+    GridActor::GetGlobalWareActorHouse().push_back(new Cat{&Board::GetGlobalBoard(),3,3,point{10,1},"Cat",brushcolor::White});
+    GridActor::GetGlobalWareActorHouse().push_back(new Human{ &Board::GetGlobalBoard(),5, 5,point{6,6},"Human",brushcolor::Blue});
+    GridActor::GetGlobalWareActorHouse().push_back(new Pig{ &Board::GetGlobalBoard(),8,8,point{20,2},"Pig",brushcolor::Pink});
     
     
 }

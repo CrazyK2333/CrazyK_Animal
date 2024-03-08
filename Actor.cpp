@@ -73,7 +73,7 @@ void GridActor::DrawActor()
 		for (int j = 0; j < height; j++)
 		{
 			OriginBoard->SearchBlockAtIndexXY(ZeroPoint.x + i, ZeroPoint.y + j)->blockcolor = FirstColor();
-			
+			OriginBoard->SearchBlockAtIndexXY(ZeroPoint.x + i, ZeroPoint.y + j)->ChangePointer(OriginBoard->SearchBlockAtIndexXY(ZeroPoint.x, ZeroPoint.y)->GridActorPointer);
 		}
 
 	}
@@ -90,7 +90,7 @@ void GridActor::ClearDrawActor()
 		for (int j = 0; j < height; j++)
 		{
 			OriginBoard->SearchBlockAtIndexXY(ZeroPoint.x + i, ZeroPoint.y + j)->blockcolor=brushcolor::Black;
-
+			OriginBoard->SearchBlockAtIndexXY(ZeroPoint.x + i, ZeroPoint.y + j)->ChangePointer(nullptr);
 		}
 
 	}
@@ -111,9 +111,10 @@ GridActor::GridActor(int inwidth, int inheight, std::string inActorName)
 	mOperationTime = 0;
 }
 
-GridActor::GridActor(Board* inOriginBoard, int inwidth, int inheight, point inZeroPoint, std::string inActorName):GridActor(inwidth,inheight,inActorName)
+GridActor::GridActor(Board* inOriginBoard, int inwidth, int inheight, point inZeroPoint, std::string inActorName,brushcolor inColor):GridActor(inwidth,inheight,inActorName)
 {
-	
+	ActorOriginColor = inColor;
+	mColor = inColor;
 	if (inOriginBoard != nullptr)
 	{
 		this->OriginBoard = inOriginBoard;
@@ -176,11 +177,7 @@ void GridActor::GridActorSendMessage(const Message& inSaveMessage)
 
 }
 
-brushcolor GridActor::OriginColor()
-{
-	ActorOriginColor = this->mColor;
-	return brushcolor();
-}
+
 
 
 

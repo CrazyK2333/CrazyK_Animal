@@ -4,6 +4,7 @@
 #include"Human.h"
 #include"Pig.h"
 #include"BaseGridMoveComponent.h"
+#include"BaseGridColorChangeComponent.h"
 
 
 
@@ -111,6 +112,7 @@ void BaseGridAttackComponent::OnAttacked(float inPower)
 		this->Hp = this->Hp - inPower;
 	
 	}
+
 	
 
 
@@ -129,6 +131,26 @@ bool BaseGridAttackComponent::IsDead()
 
 	return false;
 }
+
+//void BaseGridAttackComponent::UpDateComponent(float IntervalTime,Message inMessage)
+//{
+//	Component::UpDateComponent(IntervalTime);
+//	BaseGridColorChangeComponent* FlashFinish{ nullptr };
+//	mActorOnattackedAction += IntervalTime;
+//	if(mActorOnattackedAction>=0&&inMessage.GetIdentifier()== "OnAttacked")
+//	{
+//		
+//		mActorOnattackedAction = -4.f;
+//	
+//	}
+//	if(mActorOnattackedAction>=-2)
+//	{
+//		FlashFinish->DeActivate();
+//	
+//	}
+//
+//
+//}
 
 BaseGridAttackComponent& BaseGridAttackComponent::SetHp(int inHp)
 {

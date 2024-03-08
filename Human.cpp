@@ -4,6 +4,7 @@
 #include"BaseGridAttackComponent.h"
 #include"BaseGridColorChangeComponent.h"
 
+
 void Human::UpDate(float IntervalTime)
 {
 	GridActor::UpDate(IntervalTime);
@@ -26,15 +27,21 @@ void Human::UpDate(float IntervalTime)
 	}
 }
 
-Human::Human(class Board* inOriginBoard, int inwidth, int inheight, struct point inZeroPoint, std::string inActorName/*, brushcolor inColor*/) :GridActor{ inOriginBoard, inwidth, inheight, inZeroPoint,inActorName}
+Human::Human(class Board* inOriginBoard, int inwidth, int inheight, struct point inZeroPoint, std::string inActorName, brushcolor inColor) :GridActor{ inOriginBoard, inwidth, inheight, inZeroPoint,inActorName,inColor}
 {
+	SingleBoardBlocksinfo* HumanZeroPointBoard= this->OriginBoard->SearchBlockAtIndexXY(inZeroPoint.x, inZeroPoint.y);
+	
 	this->mColor = brushcolor::Blue;
-	this->OriginColor();
+	
 	BaseGridAttackComponent* NewAttackComponent;
 	NewAttackComponent = new BaseGridAttackComponent(this);
 	NewAttackComponent->SetHp(100).SetPower(10).SetActorName("Human").FinshBuilding();
+	HumanZeroPointBoard->ChangePointer((void*)"Human");
+
 	AddComponent<BaseGridAttackComponent>(NewAttackComponent);
+	/*AddComponent<BaseGridColorChangeComponent>();*/
 	AddComponent<BaseGridMoveComponent>();
+
 	{
 
 		if (inOriginBoard != nullptr)

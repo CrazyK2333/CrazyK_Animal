@@ -22,7 +22,7 @@ public:
 
 	}
 
-	Cat(class Board* inOriginBoard, int inwidth, int inheight, struct point inZeroPoint, std::string inActorName/*,brushcolor inColor*/);
+	Cat(class Board* inOriginBoard, int inwidth, int inheight, struct point inZeroPoint, std::string inActorName,brushcolor inColor);
 	
 	
 };

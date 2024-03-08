@@ -15,7 +15,7 @@ public:
 
 	}
 
-	Human(class Board* inOriginBoard, int inwidth, int inheight, struct point inZeroPoint, std::string inActorName/*, brushcolor inColor*/);
+	Human(class Board* inOriginBoard, int inwidth, int inheight, struct point inZeroPoint, std::string inActorName, brushcolor inColor);
 
 
 

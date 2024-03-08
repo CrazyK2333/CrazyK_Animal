@@ -8,7 +8,7 @@
 class BaseGridColorChangeComponent:public Component
 {
 private:
-	brushcolor mReStoreActorColor{ brushcolor::Black };
+	
 	double mActorLastOnAttacked{ -1.f };
 	/*float IntervalTime{ 3.f };*/
 	float mContrlIntervalTime{ 0.f };
@@ -18,7 +18,7 @@ private:
 public:
 	BaseGridColorChangeComponent(class GridActor* inActor) :Component(inActor)
 	{
-
+		
 
 	}
 
@@ -26,7 +26,7 @@ public:
 
 	void ToggleColor();
 
-	void UpDateComponent(float IntervalTime);
+	void UpDateComponent(float IntervalTime,Message inMessage);
 
 	void Activate(float FlashIntervalTime);
 

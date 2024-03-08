@@ -31,4 +31,19 @@ void SingleBoardBlocksinfo::DrawMySelfAsRectangle(HDC memDc)
 
 }
 
+void* SingleBoardBlocksinfo::FirstGridActorPointer()
+{
+    return this->GridActorPointer;
+}
+
+void* SingleBoardBlocksinfo::ChangePointer(void* inID)
+{
+    this->GridActorPointer = inID;
+    return this;
+    
+}
+
+
+
+
 

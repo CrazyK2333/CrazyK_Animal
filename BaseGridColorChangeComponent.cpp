@@ -31,11 +31,11 @@
 
 void BaseGridColorChangeComponent::SwtichToColorState(bool IsFlashed)
 {
-	if(mReStoreActorColor==brushcolor::Black&&IsFlashed)
+	/*if(ParentActor->ActorOriginColor==brushcolor::Black&&IsFlashed)
 	{
 		mReStoreActorColor = ParentActor->mColor;
 	    
-	}
+	}*/
 	if(IsFlashed)
 	{
 		ParentActor->mColor = brushcolor::LightPink;
@@ -43,7 +43,7 @@ void BaseGridColorChangeComponent::SwtichToColorState(bool IsFlashed)
 	}
 	else
 	{
-		ParentActor->mColor = mReStoreActorColor;
+		ParentActor->mColor = ParentActor->ActorOriginColor;
 	
 	}
 }
@@ -62,10 +62,14 @@ void BaseGridColorChangeComponent::ToggleColor()
 
 }
 
-void BaseGridColorChangeComponent::UpDateComponent(float IntervalTime)
+void BaseGridColorChangeComponent::UpDateComponent(float IntervalTime,Message inMesssage)
 {
 	Component::UpDateComponent(IntervalTime);
-	this->Activate(1.0f);
+	//mcolor->mcolor!=lightpink->mcolor=lightpink->
+	if(inMesssage.GetIdentifier()== "YouHaveCollided")
+	{
+		this->Activate(1.0f);
+	}
 	if(mActorLastOnAttacked>=0.f)
 	{
 		
@@ -73,6 +77,7 @@ void BaseGridColorChangeComponent::UpDateComponent(float IntervalTime)
 		
 	   
 	}
+
 	
 
 }
@@ -97,7 +102,7 @@ void BaseGridColorChangeComponent::UpDateComponent(float IntervalTime)
 
 void BaseGridColorChangeComponent::Activate(float FlashIntervalTime)
 {
-	mActorLastOnAttacked = FlashIntervalTime;
+	mContrlIntervalTime = FlashIntervalTime;
 	/*if(mActorLastOnAttacked>=2.0f)
 	{
 		mActorLastOnAttacked = -2;

@@ -2,6 +2,7 @@
 #include"Pig.h"
 #include"BaseGridMoveComponent.h"
 #include"BaseGridAttackComponent.h"
+#include"BaseGridColorChangeComponent.h"
 
 void Pig::InitEveryThing()
 {
@@ -36,14 +37,21 @@ void Pig::UpDate(float IntervalTime)
 	
 }
 
-Pig::Pig(class Board* inOriginBoard, int inwidth, int inheight, struct point inZeroPoint, std::string inActorName/*, brushcolor inColor*/) :GridActor{ inOriginBoard, inwidth, inheight, inZeroPoint,inActorName}
+Pig::Pig(class Board* inOriginBoard, int inwidth, int inheight, struct point inZeroPoint, std::string inActorName,brushcolor inColor) :GridActor{ inOriginBoard, inwidth, inheight, inZeroPoint,inActorName,inColor}
 {
+	SingleBoardBlocksinfo* PigZeroPointBoard= this->OriginBoard->SearchBlockAtIndexXY(inZeroPoint.x, inZeroPoint.y);
+	
+
 	this->mColor = brushcolor::Pink;
-	this->OriginColor();
+	
 	BaseGridAttackComponent* NewAttackComponent;
 	NewAttackComponent = new BaseGridAttackComponent(this);
 	NewAttackComponent->SetHp(200).SetPower(3).SetActorName("Pig").FinshBuilding();
+	PigZeroPointBoard->ChangePointer((void*)"Pig");
+
+
 	AddComponent<BaseGridAttackComponent>(NewAttackComponent);
+	/*AddComponent<BaseGridColorChangeComponent>();*/
 	AddComponent<BaseGridMoveComponent>();
 	/*DeBugOutputNormal("Pig's Hp is %f\n",NewAttackCo);*/
 	{

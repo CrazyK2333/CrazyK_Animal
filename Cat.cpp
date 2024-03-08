@@ -4,6 +4,7 @@
 #include"BaseGridAttackComponent.h"
 #include"BaseGridColorChangeComponent.h"
 
+
 void Cat::InitEveryThing()
 {
 	mCatLastMoveElapsed = 0.f;
@@ -59,13 +60,16 @@ void Cat::UpDate(float IntervalTime)
 	
 }
 
-Cat::Cat(class Board* inOriginBoard, int inwidth, int inheight, struct point inZeroPoint, std::string inActorName):GridActor { inOriginBoard, inwidth, inheight, inZeroPoint,inActorName }
+Cat::Cat(class Board* inOriginBoard, int inwidth, int inheight, struct point inZeroPoint, std::string inActorName, brushcolor inColor):GridActor { inOriginBoard, inwidth, inheight, inZeroPoint,inActorName,inColor}
 {
+	SingleBoardBlocksinfo* CatZeroPointBoard=this->OriginBoard->SearchBlockAtIndexXY(inZeroPoint.x,inZeroPoint.y) ;
+	
 	this->mColor = brushcolor::White;
-	this->OriginColor();
+	
 	BaseGridAttackComponent* NewAttackComponent;
 	NewAttackComponent = new BaseGridAttackComponent(this);
 	NewAttackComponent->SetHp(50).SetPower(8).SetActorName("Cat").FinshBuilding();
+	CatZeroPointBoard->ChangePointer((void*)"Cat");
 	
 	AddComponent<BaseGridAttackComponent>(NewAttackComponent);
 	AddComponent<BaseGridColorChangeComponent>();

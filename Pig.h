@@ -15,7 +15,7 @@ public:
 
 	}
 
-	Pig(class Board* inOriginBoard, int inwidth, int inheight, struct point inZeroPoint, std::string inActorName/*, brushcolor inColor*/);
+	Pig(class Board* inOriginBoard, int inwidth, int inheight, struct point inZeroPoint, std::string inActorName, brushcolor inColor);
 
 
 };

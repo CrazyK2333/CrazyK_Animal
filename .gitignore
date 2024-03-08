@@ -30,3 +30,15 @@
 *.exe
 *.out
 *.app
+*.xml
+*.vsidx
+*.ipch
+*.db
+
+# ignore folders
+.vs/
+.idea/
+Debug/
+x64/
+
+

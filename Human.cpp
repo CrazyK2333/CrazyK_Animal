@@ -39,7 +39,7 @@ Human::Human(class Board* inOriginBoard, int inwidth, int inheight, struct point
 	HumanZeroPointBoard->ChangePointer((void*)"Human");
 
 	AddComponent<BaseGridAttackComponent>(NewAttackComponent);
-	/*AddComponent<BaseGridColorChangeComponent>();*/
+	AddComponent<BaseGridColorChangeComponent>();
 	AddComponent<BaseGridMoveComponent>();
 
 	{

@@ -51,7 +51,7 @@ Pig::Pig(class Board* inOriginBoard, int inwidth, int inheight, struct point inZ
 
 
 	AddComponent<BaseGridAttackComponent>(NewAttackComponent);
-	/*AddComponent<BaseGridColorChangeComponent>();*/
+	AddComponent<BaseGridColorChangeComponent>();
 	AddComponent<BaseGridMoveComponent>();
 	/*DeBugOutputNormal("Pig's Hp is %f\n",NewAttackCo);*/
 	{

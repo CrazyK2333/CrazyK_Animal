@@ -2,6 +2,7 @@
 #include"BaseGridAttackComponent.h"
 #include"Actor.h"
 
+
 //void BaseGridColorChangeComponent::OverrideActorColor()
 //{
 //	if(ParentActor->mColor!=brushcolor::LightPink&&ParentActor->mColor!=brushcolor::Black)
@@ -40,10 +41,12 @@ void BaseGridColorChangeComponent::SwtichToColorState(bool IsFlashed)
 	{
 		ParentActor->mColor = brushcolor::LightPink;
 		
+		
 	}
 	else
 	{
 		ParentActor->mColor = ParentActor->ActorOriginColor;
+		
 	
 	}
 }
@@ -52,31 +55,72 @@ void BaseGridColorChangeComponent::ToggleColor()
 {
 
 	//!IsFlashed=false||false=mColor
-	SwtichToColorState(ParentActor->mColor != brushcolor::LightPink);
+	if(!AColorChangeIsOver)
+	{
+		SwtichToColorState(ParentActor->mColor != brushcolor::LightPink);
+		if (ColorChangeStartTime > 0)
+		{
+			ColorChangeFinishTime = ParentActor->mOperationTime;
+		}
+	}
+	
 	//少用任何条件跳转（如if）;
 
 	/*!((x && y||z)=!(x&&y)&&!(z)=(!x||!y)&&!(z)
 	!((x && y) || (z))= !(x && y) && !(z)=!(xy)&&!(z)=()*/
+	
+	
+
 
 
 
 }
 
-void BaseGridColorChangeComponent::UpDateComponent(float IntervalTime,Message inMesssage)
+void BaseGridColorChangeComponent::UpDateComponent(float IntervalTime)
 {
 	Component::UpDateComponent(IntervalTime);
-	//mcolor->mcolor!=lightpink->mcolor=lightpink->
-	if(inMesssage.GetIdentifier()== "YouHaveCollided")
+	//To be completed
+	if(!AColorChangeIsOver)
 	{
-		this->Activate(1.0f);
+		if (this->ActorOnattacked)
+		{
+			this->ActorOnattacked = false;
+			this->Activate(1.0f);
+			if (ColorChangeStartTime < 0)
+			{
+				ColorChangeStartTime = ParentActor->mOperationTime;
+
+			}
+			/*DeBugOutputNormal("starttime is %f\n", this->ColorChangeStartTime);*/
+
+		}
+		if (mActorLastOnAttacked >= 0.f)
+		{
+
+			this->ToggleColor();
+
+
+		}
+		if (ColorChangeStartTime > 0 && ColorChangeFinishTime > 0 && ColorChangeFinishTime - ColorChangeStartTime >= 4.0f)
+		{
+			AColorChangeIsOver = true;
+			ParentActor->mColor = ParentActor->ActorOriginColor;
+
+		}
+	
 	}
-	if(mActorLastOnAttacked>=0.f)
+	if(AColorChangeIsOver)
 	{
+		mActorLastOnAttacked = -2.f;
+		AColorChangeIsOver = false;
+		ColorChangeFinishTime = -2.f;
+		ColorChangeStartTime = -2.f;
 		
-		this->ToggleColor();
 		
-	   
+	
+	
 	}
+	
 
 	
 
@@ -120,8 +164,7 @@ void BaseGridColorChangeComponent::Activate(float FlashIntervalTime)
 		mActorLastOnAttacked = ParentActor->mOperationTime;
 
 	}
-
-
+	
 
 
 
@@ -133,9 +176,13 @@ void BaseGridColorChangeComponent::DeActivate()
 
 }
 
-void BaseGridColorChangeComponent::ProcessMessage(Message)
+void BaseGridColorChangeComponent::ProcessMessage(Message inMessage)
 {
-
+	if(inMessage.GetIdentifier()== "YouHaveCollided")
+	{
+		ActorOnattacked = true;
+	
+	}
 
 }
 
